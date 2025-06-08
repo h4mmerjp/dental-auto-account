@@ -3,9 +3,5 @@
     "api/dify-proxy.js": {
       "maxDuration": 30
     }
-  },
-  "env": {
-    "DIFY_API_KEY": "@dify-api-key",
-    "DIFY_BASE_URL": "https://api.dify.ai/v1"
   }
 }
