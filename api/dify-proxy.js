@@ -1,4 +1,3 @@
-// Vercel API Route for Dify Proxy
 import formidable from 'formidable';
 import fs from 'fs';
 import FormData from 'form-data';
@@ -38,7 +37,6 @@ export default async function handler(req, res) {
 
     const [fields, files] = await form.parse(req);
     console.log('Files parsed:', Object.keys(files));
-    console.log('Fields parsed:', Object.keys(fields));
 
     const uploadedFile = files.file?.[0];
     if (!uploadedFile) {
@@ -128,7 +126,6 @@ async function uploadFileToDify(file) {
 
     const responseText = await response.text();
     console.log('Dify upload response status:', response.status);
-    console.log('Dify upload response body:', responseText);
 
     if (!response.ok) {
       return {
@@ -179,7 +176,7 @@ async function runDifyWorkflow(fileId) {
       user: "dental-app-user"
     };
 
-    console.log('Sending workflow request with body:', JSON.stringify(requestBody, null, 2));
+    console.log('Sending workflow request...');
 
     const response = await fetch(`${process.env.DIFY_BASE_URL}/workflows/run`, {
       method: 'POST',
@@ -192,7 +189,6 @@ async function runDifyWorkflow(fileId) {
 
     const responseText = await response.text();
     console.log('Dify workflow response status:', response.status);
-    console.log('Dify workflow response body:', responseText);
 
     if (!response.ok) {
       return {
@@ -208,7 +204,6 @@ async function runDifyWorkflow(fileId) {
     let extractedData = {};
     
     if (result.data && result.data.outputs) {
-      // Difyワークフローの出力から必要なパラメータを取得
       const outputs = result.data.outputs;
       
       extractedData = {
